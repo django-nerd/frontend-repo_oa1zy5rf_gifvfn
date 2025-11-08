@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import { Mail, Send, Linkedin, Github } from 'lucide-react';
-import confetti from 'canvas-confetti';
+import { Mail, Send, Linkedin, Github, CheckCircle2 } from 'lucide-react';
 
 export default function ContactSection() {
   const [form, setForm] = useState({ name: '', email: '', budget: '', message: '' });
@@ -14,11 +13,9 @@ export default function ContactSection() {
     }
     setStatus('loading');
 
-    // Mock submit delay; ready to hook to backend later
+    // Simulate async submit; ready to connect to a backend
     await new Promise((r) => setTimeout(r, 800));
     setStatus('success');
-
-    confetti({ particleCount: 80, spread: 70, origin: { y: 0.6 } });
   };
 
   return (
@@ -54,7 +51,7 @@ export default function ContactSection() {
               <textarea required rows={4} value={form.message} onChange={(e)=>setForm({...form, message:e.target.value})} className="mt-1 w-full rounded-md bg-white/10 border border-white/10 px-3 py-2 outline-none focus:ring-2 focus:ring-cyan-400" placeholder="A few lines about the project..."/>
             </Field>
             <button disabled={status==='loading'} className="inline-flex items-center justify-center gap-2 rounded-md bg-cyan-400 text-black font-semibold px-5 py-3 hover:brightness-95 disabled:opacity-60">
-              <Send className="h-4 w-4" /> {status === 'success' ? 'Sent! I will reply soon.' : status === 'loading' ? 'Sending…' : 'Send Message'}
+              {status === 'success' ? <CheckCircle2 className="h-4 w-4"/> : <Send className="h-4 w-4" />} {status === 'success' ? 'Sent! I will reply soon.' : status === 'loading' ? 'Sending…' : 'Send Message'}
             </button>
           </form>
 
